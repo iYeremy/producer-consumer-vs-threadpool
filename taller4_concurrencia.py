@@ -2,7 +2,7 @@ import threading, queue, time, random
 
 cola = queue.Queue(maxsize=10)
 
-def productor(nombre):
+def productor(nombre) -> None:
     print(f"Iniciando productor [{nombre}]...")
     for i in range(5):
         item = f"[{nombre} - Helado - {i}]"
@@ -13,7 +13,7 @@ def productor(nombre):
     cola.put(None) # senial para los consumidores 
     print(f"{nombre} finalizo produccion")
 
-def consumidor(id_con):
+def consumidor(id_con) -> None:
     print(f"Consumidor [{id_con}] iniciado :)")
     while True:
         item = cola.get() # bloquea si esta vacia
@@ -25,3 +25,8 @@ def consumidor(id_con):
         time.sleep(random.uniform(0.2, 0.6))
         cola.task_done() # se termino de comer el helado
 
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()

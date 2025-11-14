@@ -19,7 +19,7 @@ def consumidor(id_con) -> None:
         item = cola.get() # bloquea si esta vacia
         if item is None:
             print(f"Consumidor [{id_con}] no hay mas heladitos :( ")
-            cola.put(None)
+            cola.task_done() # se termino de comer el helado
             break
         print(f"Consumidor [{id_con}] comio un heladito")
         time.sleep(random.uniform(0.2, 0.4))

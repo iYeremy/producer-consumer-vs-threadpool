@@ -25,8 +25,13 @@ def consumidor(id_con) -> None:
         time.sleep(random.uniform(0.2, 0.6))
         cola.task_done() # se termino de comer el helado
 
-def main():
-    pass
+def main(): 
+    productores = [threading.Thread(target = productor, args=(i,)) for i in range(2)]
+    consumidores = [threading.Thread(target = consumidor, args=(i,)) for i in range(3)]
 
+    for h in productores + consumidores: h.start()
+    for h in productores + consumidores: h.join()
+    print("Procesamiento completado")
+   
 if __name__ == "__main__":
     main()

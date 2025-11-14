@@ -13,5 +13,14 @@ def productor(nombre):
     cola.put(None) # senial para los consumidores 
     print(f"{nombre} finalizo produccion")
 
-def consumidor():
-    pass
+def consumidor(id_con):
+    print(f"Consumidor [{id_con}] iniciado :)")
+    while True:
+        item = cola.get() # bloquea si esta vacia
+        if item is None:
+            print(f"Consumidor [{id_con}] no hay mas heladitos :( )")
+            cola.put(None)
+            break
+        print(f"Consumidor [{id_con}] comio un heladito")
+        time.sleep(random.uniform(0.2, 0.6))
+

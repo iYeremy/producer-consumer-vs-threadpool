@@ -18,7 +18,7 @@ def consumidor(id_con) -> None:
     while True:
         item = cola.get() # bloquea si esta vacia
         if item is None:
-            print(f"Consumidor [{id_con}] no hay mas heladitos :( )")
+            print(f"Consumidor [{id_con}] no hay mas heladitos :( ")
             cola.put(None)
             break
         print(f"Consumidor [{id_con}] comio un heladito")

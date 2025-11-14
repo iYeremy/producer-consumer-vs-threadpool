@@ -23,3 +23,5 @@ def consumidor(id_con):
             break
         print(f"Consumidor [{id_con}] comio un heladito")
         time.sleep(random.uniform(0.2, 0.6))
+        cola.task_done() # se termino de comer el helado
+

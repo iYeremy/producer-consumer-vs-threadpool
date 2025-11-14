@@ -5,7 +5,7 @@ cola = queue.Queue(maxsize=10)
 def productor(nombre):
     print(f"Iniciando productor [{nombre}]...")
     for i in range(5):
-        item = f"[{nombre}] - Helado - {i}"
+        item = f"[{nombre} - Helado - {i}]"
         cola.put(item) # bloquea si esta llena la cola
         print(f"Productor [{nombre}] hizo un {item}")
         time.sleep(random.uniform(0.2, 0.6))
@@ -23,4 +23,3 @@ def consumidor(id_con):
             break
         print(f"Consumidor [{id_con}] comio un heladito")
         time.sleep(random.uniform(0.2, 0.6))
-

@@ -10,7 +10,7 @@ RESET = "\033[0m"
 cola = queue.Queue(maxsize=10)
 
 producciones = []
-consumidores = []
+consumidos = []
 
 def productor(nombre) -> None:
     print(f"{VERDE}Iniciando productor [{nombre}]...{RESET}")
@@ -31,7 +31,7 @@ def consumidor(id_con) -> None:
             print(f"{ROJO} Consumidor [{id_con}] vio que no hay mas heladitos disponibles :c{RESET}")
             break
         print(f"{AZUL}Consumidor [{id_con}] esta comiendo {item}{RESET}")
-        consumidores.append(item)
+        consumidos.append(item)
         time.sleep(random.uniform(0.2, 0.4))
         cola.task_done() # se termino de comer el helado
     print(f"{ROJO}Consumidor [{id_con}] no comera mas helados{RESET}")
@@ -49,7 +49,7 @@ def main():
 
     print("\n===== RESULTADOS =====")
     print(f"{AMARILLO}Total de tareas producidas: {len(producciones)}{RESET}")
-    print(f"{AMARILLO}Total de tareas consumidas: {len(consumidores)}{RESET}")
+    print(f"{AMARILLO}Total de tareas consumidas: {len(consumidos)}{RESET}")
     print(f"{AMARILLO}Tiempo total de ejecución: {round(fin - inicio, 3)} segundos{RESET}")
     print(f"{AMARILLO}Procesamiento completado{RESET}")
     print("Procesamiento completado")

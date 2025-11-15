@@ -22,7 +22,7 @@ def consumidor(id_con) -> None:
         print(f"Consumidor [{id_con}] esta comiendo {item}")
         time.sleep(random.uniform(0.2, 0.4))
         cola.task_done() # se termino de comer el helado
-    print(f"Consumidor [{id_con}] termino de comer el heladito")
+    print(f"Consumidor [{id_con}] no comera mas helados")
 def main(): 
     productores = [threading.Thread(target = productor, args=(i,)) for i in range(2)]
     consumidores = [threading.Thread(target = consumidor, args=(i,)) for i in range(3)]

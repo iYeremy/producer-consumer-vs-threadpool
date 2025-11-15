@@ -1,28 +1,35 @@
 import threading, queue, time, random
 
+# Colores ANSI
+VERDE = "\033[32m"
+AZUL = "\033[34m"
+ROJO = "\033[31m"
+AMARILLO = "\033[33m"
+RESET = "\033[0m"
+
 cola = queue.Queue(maxsize=10)
 
 def productor(nombre) -> None:
-    print(f"Iniciando productor [{nombre}]...")
+    print(f"{VERDE}Iniciando productor [{nombre}]...{RESET}")
     for i in range(5):
-        item = f"[{nombre} - Helado - {i}]"
+        item = f"[(P{nombre})-Helado-{i}]"
         cola.put(item) # bloquea si esta llena la cola
-        print(f"Productor [{nombre}] hizo un {item}")
+        print(f"{VERDE}Productor [{nombre}] hizo un {item}{RESET}")
         time.sleep(random.uniform(0.2, 0.6))
-    print(f"Productor {nombre} finalizo produccion")
+    print(f"{VERDE}Productor {nombre} finalizo produccion{RESET}")
 
 def consumidor(id_con) -> None:
-    print(f"Consumidor [{id_con}] iniciado :)")
+    print(f"{AZUL}Consumidor [{id_con}] iniciado :){RESET}")
     while True:
         try:
             item = cola.get(timeout=2)
         except queue.Empty:
-            print(f"Consumidor [{id_con}] vio que no hay mas heladitos disponibles :c")
+            print(f"{ROJO} Consumidor [{id_con}] vio que no hay mas heladitos disponibles :c{RESET}")
             break
-        print(f"Consumidor [{id_con}] esta comiendo {item}")
+        print(f"{AZUL}Consumidor [{id_con}] esta comiendo {item}{RESET}")
         time.sleep(random.uniform(0.2, 0.4))
         cola.task_done() # se termino de comer el helado
-    print(f"Consumidor [{id_con}] no comera mas helados")
+    print(f"{ROJO}Consumidor [{id_con}] no comera mas helados{RESET}")
 
 def main(): 
     productores = [threading.Thread(target = productor, args=(i,)) for i in range(2)]

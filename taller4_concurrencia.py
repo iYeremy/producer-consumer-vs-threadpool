@@ -17,6 +17,7 @@ def consumidor(id_con) -> None:
         try:
             item = cola.get(timeout=2)
         except queue.Empty:
+            print(f"Consumidor [{id_con}] vio que no hay mas heladitos disponibles :c")
             break
         print(f"Consumidor [{id_con}] esta comiendo {item}")
         time.sleep(random.uniform(0.2, 0.4))

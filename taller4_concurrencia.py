@@ -10,7 +10,6 @@ def productor(nombre) -> None:
         print(f"Productor [{nombre}] hizo un {item}")
         time.sleep(random.uniform(0.2, 0.6))
 
-    cola.put(None) # senial para los consumidores 
     print(f"{nombre} finalizo produccion")
 
 def consumidor(id_con) -> None:

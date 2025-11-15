@@ -1,58 +1,95 @@
-# Productor–Consumidor en Python (Versión con Timeouts)
+# Productor--Consumidor en Python (Version con Timeouts)
 
-Este proyecto implementa una versión sencilla del patrón Productor–Consumidor en Python utilizando hilos (`threading`) y una cola segura (`queue.Queue`). El sistema simula cómo varios productores generan elementos y cómo varios consumidores los procesan de manera concurrente.
-
-La comunicación entre hilos se realiza mediante una cola compartida y los consumidores utilizan un `timeout` para determinar el final de su trabajo cuando ya no se produzcan más elementos.
-
----
-
-## Descripción general
-
--   Se crean dos productores, cada uno generando cinco elementos.
--   Se crean tres consumidores, que retiran elementos de la cola mientras haya disponibles.
--   La cola tiene un tamaño máximo de 10 elementos.
--   Los consumidores utilizan `queue.get(timeout=2)` para finalizar cuando la cola se mantiene vacía por un tiempo.
--   Los hilos se ejecutan en paralelo para simular concurrencia real.
-
-Este enfoque evita el uso de sentinelas (`None`) y permite finalizar el consumo de forma natural mediante timeouts.
+Este proyecto implementa el patron **Productor--Consumidor** usando
+`threading` y `queue.Queue`. La idea es simular como dos productores
+generan heladitos y tres consumidores los procesan al mismo tiempo. Todo
+se hace de forma concurrente y usando un `timeout` para que los
+consumidores sepan cuando ya no quedan mas tareas.
 
 ---
 
-## Estructura del código
+## Descripcion general
+
+-   Dos productores generan 10 helados en total.
+-   Tres consumidores los procesan mientras haya elementos en la cola.
+-   La cola tiene un tamaño maximo de 10.
+-   Los consumidores usan `get(timeout=2)` para terminar cuando la cola
+    queda vacia por un rato.
+-   Al final se muestran las tareas producidas, las consumidas y el
+    tiempo total de ejecucion.
+
+---
+
+## Como funciona el codigo
 
 ### `productor(nombre)`
 
-Genera cinco elementos y los inserta en la cola.  
-Imprime información sobre cada producción.
+Genera 5 helados, los coloca en la cola y muestra mensajes sobre lo que
+va haciendo.
 
 ### `consumidor(id_con)`
 
-Toma elementos de la cola utilizando un timeout.  
-Si no se recibe ningún elemento dentro del intervalo de espera, el consumidor termina su ejecución.
+Saca helados de la cola hasta que no llegan mas (timeout). Tambien
+muestra si esta comiendo o si ya no hay tareas.
 
 ### `main()`
 
--   Crea y arranca los hilos de productores y consumidores.
--   Espera a que todos los hilos finalicen usando `join()`.
--   Imprime un mensaje indicando que el procesamiento ha terminado.
+Crea los hilos, los arranca, espera a que todos terminen y muestra los
+resultados finales.
 
 ---
 
 ## Ejemplo de salida
 
-El orden de los mensajes puede variar debido a la ejecución concurrente.
+    Iniciando productor [0]...
+    Iniciando productor [1]...
+    Consumidor [0] iniciado :)
+    Consumidor [1] iniciado :)
+    Consumidor [2] iniciado :)
+    Productor [0] hizo un [(P0)-Helado-0]
+    Consumidor [0] esta comiendo [(P0)-Helado-0]
+    ...
+    ===== RESULTADOS =====
+    Total de tareas producidas: 10
+    Total de tareas consumidas: 10
+    Tiempo total de ejecucion: 3.814 segundos
+    Procesamiento completado
 
-```
-Iniciando productor [0]...
-Iniciando productor [1]...
-Consumidor [0] iniciado :)
-Consumidor [1] iniciado :)
-Consumidor [2] iniciado :)
-Productor [0] hizo un [0 - Helado - 0]
-Consumidor [0] esta comiendo [0 - Helado - 0]
-...
-Consumidor [1] vio que no hay mas heladitos disponibles :c
-Consumidor [1] no comera mas helados
-Procesamiento completado
+---
 
-```
+# Segunda version: ThreadPoolExecutor
+
+Tambien se hizo una version usando **ThreadPoolExecutor**, que maneja
+automaticamente un pool de hilos. Aqui no hay productores y consumidores
+separados, sino tareas que representan helados y son ejecutadas por los
+hilos del pool.
+
+Ejemplo:
+
+    [(H0)-Helado] iniciando preparacion...
+    Resultado -> (H0)-Helado completado
+    ...
+    Tiempo total: 3.806 segundos
+
+---
+
+# Analisis rapido
+
+-   En la version Productor--Consumidor se puede ver claramente como se
+    comunican los hilos usando la cola.
+-   En la version con ThreadPoolExecutor el codigo queda mas limpio y
+    Python se encarga de manejar los hilos.
+-   Los tiempos salen parecidos porque la mayor parte del tiempo se va
+    en `sleep()`, que simula operaciones de E/S.
+-   Para aplicaciones reales, el executor es mas practico porque
+    reutiliza hilos y escala mejor.
+
+---
+
+# Estructura del proyecto
+
+    .
+    ├── estrucura_base.py
+    ├── ThreadPoolExecutor_helados.py
+    ├── MVC_Productores_y_Consumidores/
+    └── README.md

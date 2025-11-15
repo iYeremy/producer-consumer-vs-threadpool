@@ -1,5 +1,9 @@
 # Productor--Consumidor en Python (Version con Timeouts)
 
+> [!NOTE]
+> Este proyecto tambien contiene un directorio MVC_Productores_y_Consumidores/ pero este no forma parte del taller, fue elaborado solamente para fines didactos y
+> practicar la estructura MVC pero para programas AUTOMATIZADOS
+
 Este proyecto implementa el patron **Productor--Consumidor** usando
 `threading` y `queue.Queue`. La idea es simular como dos productores
 generan heladitos y tres consumidores los procesan al mismo tiempo. Todo

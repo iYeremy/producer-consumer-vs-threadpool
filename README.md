@@ -11,7 +11,12 @@ se hace de forma concurrente y usando un `timeout` para que los
 consumidores sepan cuando ya no quedan mas tareas.
 
 Tambien use este video de apoyo para darme una idea intuitiva sobre el manejo de hilos y la cola (buffer)
-[![Ver demostración en YouTube](https://img.youtube.com/vi/gI0BtbmIYUs/hqdefault.jpg)](https://www.youtube.com/watch?v=gI0BtbmIYUs)
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=gI0BtbmIYUs">
+    <img src="https://img.youtube.com/vi/gI0BtbmIYUs/hqdefault.jpg" alt="Demo en YouTube">
+  </a>
+</p>
 
 ---
 

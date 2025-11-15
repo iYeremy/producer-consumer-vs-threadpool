@@ -43,5 +43,16 @@ Si no se recibe ningún elemento dentro del intervalo de espera, el consumidor t
 El orden de los mensajes puede variar debido a la ejecución concurrente.
 
 ```
+Iniciando productor [0]...
+Iniciando productor [1]...
+Consumidor [0] iniciado :)
+Consumidor [1] iniciado :)
+Consumidor [2] iniciado :)
+Productor [0] hizo un [0 - Helado - 0]
+Consumidor [0] esta comiendo [0 - Helado - 0]
+...
+Consumidor [1] vio que no hay mas heladitos disponibles :c
+Consumidor [1] no comera mas helados
+Procesamiento completado
 
 ```

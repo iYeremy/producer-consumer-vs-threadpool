@@ -9,11 +9,15 @@ RESET = "\033[0m"
 
 cola = queue.Queue(maxsize=10)
 
+producciones = []
+consumidores = []
+
 def productor(nombre) -> None:
     print(f"{VERDE}Iniciando productor [{nombre}]...{RESET}")
     for i in range(5):
         item = f"[(P{nombre})-Helado-{i}]"
         cola.put(item) # bloquea si esta llena la cola
+        producciones.append(item) # agregar a una lista para despues contar sus elementos
         print(f"{VERDE}Productor [{nombre}] hizo un {item}{RESET}")
         time.sleep(random.uniform(0.2, 0.6))
     print(f"{VERDE}Productor {nombre} finalizo produccion{RESET}")
@@ -27,6 +31,7 @@ def consumidor(id_con) -> None:
             print(f"{ROJO} Consumidor [{id_con}] vio que no hay mas heladitos disponibles :c{RESET}")
             break
         print(f"{AZUL}Consumidor [{id_con}] esta comiendo {item}{RESET}")
+        consumidores.append(item)
         time.sleep(random.uniform(0.2, 0.4))
         cola.task_done() # se termino de comer el helado
     print(f"{ROJO}Consumidor [{id_con}] no comera mas helados{RESET}")
@@ -43,8 +48,11 @@ def main():
     fin = time.time()
 
     print("\n===== RESULTADOS =====")
+    print(f"{AMARILLO}Total de tareas producidas: {len(producciones)}{RESET}")
+    print(f"{AMARILLO}Total de tareas consumidas: {len(consumidores)}{RESET}")
     print(f"{AMARILLO}Tiempo total de ejecución: {round(fin - inicio, 3)} segundos{RESET}")
     print(f"{AMARILLO}Procesamiento completado{RESET}")
+    print("Procesamiento completado")
    
 if __name__ == "__main__":
     main()

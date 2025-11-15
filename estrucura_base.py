@@ -9,7 +9,7 @@ def productor(nombre) -> None:
         cola.put(item) # bloquea si esta llena la cola
         print(f"Productor [{nombre}] hizo un {item}")
         time.sleep(random.uniform(0.2, 0.6))
-    print(f"{nombre} finalizo produccion")
+    print(f"Productor {nombre} finalizo produccion")
 
 def consumidor(id_con) -> None:
     print(f"Consumidor [{id_con}] iniciado :)")
@@ -23,6 +23,7 @@ def consumidor(id_con) -> None:
         time.sleep(random.uniform(0.2, 0.4))
         cola.task_done() # se termino de comer el helado
     print(f"Consumidor [{id_con}] no comera mas helados")
+
 def main(): 
     productores = [threading.Thread(target = productor, args=(i,)) for i in range(2)]
     consumidores = [threading.Thread(target = consumidor, args=(i,)) for i in range(3)]

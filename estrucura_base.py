@@ -32,12 +32,19 @@ def consumidor(id_con) -> None:
     print(f"{ROJO}Consumidor [{id_con}] no comera mas helados{RESET}")
 
 def main(): 
+    inicio = time.time()
+
     productores = [threading.Thread(target = productor, args=(i,)) for i in range(2)]
     consumidores = [threading.Thread(target = consumidor, args=(i,)) for i in range(3)]
 
     for h in productores + consumidores: h.start()
     for h in productores + consumidores: h.join()
-    print("Procesamiento completado")
+
+    fin = time.time()
+
+    print("\n===== RESULTADOS =====")
+    print(f"{AMARILLO}Tiempo total de ejecución: {round(fin - inicio, 3)} segundos{RESET}")
+    print(f"{AMARILLO}Procesamiento completado{RESET}")
    
 if __name__ == "__main__":
     main()

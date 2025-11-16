@@ -98,6 +98,18 @@ Ejemplo:
 
 ---
 
+## Reflexion sobre modularidad y posible uso de MVC
+
+Aunque este taller funciona bien con un solo script, vale la pena pensar como se organizaria si el sistema creciera. En proyectos mas grandes, separar responsabilidades suele hacer el codigo mas claro y mas facil de mantener.
+
+Una opcion seria usar una estructura inspirada en el patron MVC:
+
+-   **Modelo:** incluiria la logica de productores, consumidores y la cola compartida.
+-   **Controlador:** coordina el flujo del programa, la creacion de hilos y el control general del proceso.
+-   **Vista:** se encarga de mostrar mensajes, formato de salida y cualquier interaccion visible.
+
+Para este taller no es necesario implementar esta estructura (igualmente agregue una version de MVC), pero pensar en modularidad ayuda a entender como escalar el diseno si se agregan mas tipos de tareas, varias colas o diferentes interfaces.
+
 # Estructura del proyecto
 
     .

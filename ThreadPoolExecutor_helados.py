@@ -1,7 +1,6 @@
 """
-Ejercicio: Uso de ThreadPoolExecutor para procesar tareas concurrentes.
-Cada tarea simula preparar un helado con una duracion aleatoria.
-Se muestran conforme van terminando.
+Ejercicio: Uso de ThreadPoolExecutor para simular la carga de mundos en un videojuego.
+Cada tarea representa el proceso de preparar un mundo hasta que los jugadores puedan entrar.
 """
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -14,25 +13,37 @@ AZUL = "\033[34m"
 AMARILLO = "\033[33m"
 RESET = "\033[0m"
 
+MENSAJES_CARGA = [
+    "Cargando terreno",
+    "Rellenando mares",
+    "Despertando fauna",
+    "Iluminando cavernas",
+    "Regando junglas",
+    "Afinando musica del bioma",
+    "Elevando islas flotantes",
+]
 
-def preparar_helado(nombre):
-    """Simula preparar un helado con una duracion aleatoria."""
-    duracion = random.uniform(0.5, 1.5)
-    print(f"{AZUL}[{nombre}] iniciando preparacion (duracion {duracion:.2f}s){RESET}")
-    time.sleep(duracion)
-    return f"{nombre} completado"
+
+def cargar_mundo(nombre):
+    """Simula las etapas que debe pasar un mundo antes de estar disponible."""
+    pasos = random.sample(MENSAJES_CARGA, k=3)
+    tiempo_total = 0.0
+    for paso in pasos:
+        duracion = random.uniform(0.3, 0.8)
+        tiempo_total += duracion
+        print(f"{AZUL}[{nombre}] {paso}...{RESET}")
+        time.sleep(duracion)
+    return f"{nombre} listo en {tiempo_total:.2f}s"
 
 
 def main():
-    # Creamos un conjunto de tareas
-    helados = [f"(H{i})-Helado" for i in range(10)]
+    mundos = [f"Mundo-{i}" for i in range(10)]
 
     inicio = time.time()
 
     with ThreadPoolExecutor(max_workers=3) as executor:
-        futuros = [executor.submit(preparar_helado, h) for h in helados]
+        futuros = [executor.submit(cargar_mundo, mundo) for mundo in mundos]
 
-        # Mostrar resultados a medida que terminan
         for futuro in as_completed(futuros):
             resultado = futuro.result()
             print(f"{VERDE}Resultado -> {resultado}{RESET}")
@@ -40,7 +51,7 @@ def main():
     fin = time.time()
 
     print(f"{AMARILLO}Tiempo total de ejecucion: {fin - inicio:.3f} segundos{RESET}")
-    print(f"{AMARILLO}Ejecucion finalizada.{RESET}")
+    print(f"{AMARILLO}Cargador de mundos finalizado.{RESET}")
 
 
 if __name__ == "__main__":
